@@ -5,6 +5,11 @@
 npm install
 ```
 
+### Start json-server
+```
+npm run db
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
@@ -13,11 +18,6 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Start json-server
-```
-npm run db
 ```
 
 ### Customize configuration
