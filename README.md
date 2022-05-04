@@ -17,7 +17,7 @@ npm run build
 
 ### Start json-server
 ```
-json-server db.json
+npm run db
 ```
 
 ### Customize configuration
