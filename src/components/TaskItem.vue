@@ -48,8 +48,6 @@ export default {
   },
   methods: {
     updateTask() {
-      // this.mutableTask = !this.mutableTask
-      // console.log(this.mutableTask);
       this.$emit('update', this.mutableTask);
     },
   },

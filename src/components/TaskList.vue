@@ -27,7 +27,6 @@ export default {
   methods: {
     updateTask(mutableTask) {
       this.$emit('update', mutableTask);
-      // console.log(mutableTask);
     },
   },
 };

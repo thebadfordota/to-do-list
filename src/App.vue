@@ -52,14 +52,12 @@ export default {
     },
     updateTask(task) {
       axios.put(`${process.env.VUE_APP_API_ADDRESS}/${task.id}`, task);
-      console.log(task);
     },
     getTaskData() {
       axios
         .get(process.env.VUE_APP_API_ADDRESS)
         .then((response) => {
           response.data.forEach((data) => {
-            // this.createTask(data);
             this.tasks.push(data);
           });
         })
