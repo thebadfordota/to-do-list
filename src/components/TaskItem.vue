@@ -5,10 +5,12 @@
         <v-checkbox
             color="red"
             v-model="mutableTask.checked"
+            v-on:change="updateTask"
         ></v-checkbox>
       </v-col>
       <v-col cols="12" md="9">
         <v-text-field
+            v-on:change="$emit('update', this.mutableTask)"
             v-model="mutableTask.body"
         ></v-text-field>
       </v-col>
@@ -45,7 +47,11 @@ export default {
   mounted() {
   },
   methods: {
-
+    updateTask() {
+      // this.mutableTask = !this.mutableTask
+      // console.log(this.mutableTask);
+      this.$emit('update', this.mutableTask);
+    },
   },
 };
 </script>

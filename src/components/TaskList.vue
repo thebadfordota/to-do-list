@@ -5,6 +5,7 @@
       :task="task"
       :key="task.id"
       @remove="$emit('remove', task)"
+      @update="updateTask"
   ></task-item>
   </div>
   <h2 v-else>No new tasks</h2>
@@ -21,6 +22,12 @@ export default {
     tasks: {
       type: Array,
       required: true,
+    },
+  },
+  methods: {
+    updateTask(mutableTask) {
+      this.$emit('update', mutableTask);
+      // console.log(mutableTask);
     },
   },
 };

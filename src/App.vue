@@ -10,6 +10,7 @@
         <task-list
             :tasks="tasks"
             @remove="removeTask"
+            @update="updateTask"
         ></task-list>
       </task-container>
     </v-main>
@@ -37,19 +38,29 @@ export default {
   methods: {
     createTask(task) {
       this.tasks.push(task);
+      axios.post(process.env.VUE_APP_API_ADDRESS, task);
     },
     removeTask(task) {
       this.tasks = this.tasks.filter((p) => p.id !== task.id);
+      axios.delete(`${process.env.VUE_APP_API_ADDRESS}/${task.id}`);
     },
     clearList() {
+      this.tasks.forEach((data) => {
+        axios.delete(`${process.env.VUE_APP_API_ADDRESS}/${data.id}`);
+      });
       this.tasks.splice(0, this.tasks.length);
+    },
+    updateTask(task) {
+      axios.put(`${process.env.VUE_APP_API_ADDRESS}/${task.id}`, task);
+      console.log(task);
     },
     getTaskData() {
       axios
         .get(process.env.VUE_APP_API_ADDRESS)
         .then((response) => {
           response.data.forEach((data) => {
-            this.createTask(data);
+            // this.createTask(data);
+            this.tasks.push(data);
           });
         })
         .catch((error) => {
