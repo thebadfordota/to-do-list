@@ -4,13 +4,14 @@
       <task-container @clear="clearList">
         <!-- Create Task        -->
         <task-form
-            @create="createTask"
+          @create="createTask"
         ></task-form>
         <!--List          -->
         <task-list
-            :tasks="tasks"
-            @remove="removeTask"
-            @update="updateTask"
+          :tasks="tasks"
+          @remove="removeTask"
+          @update="updateTask"
+          @change-tasks-list-position="changeTaskListPosition"
         ></task-list>
       </task-container>
     </v-main>
@@ -25,7 +26,11 @@ import TaskContainer from '@/components/TaskContainer.vue';
 
 export default {
   name: 'App',
-  components: { TaskContainer, TaskList, TaskForm },
+  components: {
+    TaskForm,
+    TaskList,
+    TaskContainer,
+  },
 
   data() {
     return {
@@ -64,6 +69,19 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    changeTaskListPosition(event) {
+      const firstElement = this.tasks[event.moved.oldIndex];
+      const firstIndex = firstElement.id;
+      const secondElement = this.tasks[event.moved.newIndex];
+      const secondIndex = secondElement.id;
+      console.log(firstIndex);
+      console.log(secondIndex);
+      axios
+        .put(`${process.env.VUE_APP_API_ADDRESS}/${firstIndex}`, secondElement);
+      axios
+        .put(`${process.env.VUE_APP_API_ADDRESS}/${secondIndex}`, firstElement);
+      // console.log(event.moved);
     },
   },
 };
