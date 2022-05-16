@@ -1,1 +1,3 @@
 src/plugins/vuetify.js
+src/components/TaskForm.vue
+src/components/TaskTab.vue

@@ -12,10 +12,13 @@
       style="max-height: 0;"
     >
       <div class="collapseContentText">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercit
-          ullamc.
-        </p>
+        <textarea
+          class="form-textarea"
+          v-model="mutableTask.aboutTask"
+          v-on:change="updateAboutTask"
+          @keyup.enter="updateAboutTask"
+        >
+        </textarea>
       </div>
     </div>
   </div>
@@ -40,6 +43,12 @@ export default {
       idTmp: this.task.id,
       refLink: '',
       collapseMaxHeight: 100,
+      mutableTask: {
+        id: this.task.id,
+        body: this.task.body,
+        aboutTask: this.task.aboutTask,
+        checked: this.task.checked,
+      },
     };
   },
   mounted() {
@@ -56,26 +65,37 @@ export default {
         this.$refs[this.refLink].style.maxHeight = '0';
       }
     },
+    updateAboutTask() {
+      this.$emit('change-about-task', this.mutableTask);
+    },
   },
 };
 </script>
 
-<style scoped>
-.tabContainer {
-  margin-top: 20px;
-}
+<style lang="sass" scoped>
+.tabContainer
+  margin-top: 20px
 
-.collapseContent {
-  padding: 0 20px;
-  background-color: white;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-}
+.collapseContent
+  padding: 0 20px
+  background-color: white
+  max-height: 0
+  overflow: hidden
+  transition: max-height 0.2s ease-out
 
-.collapseContentText {
-  padding: 10px;
-  font-size: 16px;
-  background: #e9ecef;
-}
+.collapseContentText
+  padding: 10px
+  font-size: 16px
+
+.form-textarea
+  width: 83%
+  display: inline-block
+  overflow: auto
+  height: 70px
+  padding: 10px
+  box-sizing: border-box
+  border: solid 2px #1E90FF
+  border-radius: 5px
+  font-size: 16px
+  resize: none
 </style>

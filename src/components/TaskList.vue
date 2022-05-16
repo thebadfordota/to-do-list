@@ -1,7 +1,6 @@
 <template>
   <div v-if="tasks.length > 0">
     <draggable
-      class="dragArea list-group w-full"
       :list="tasks"
       @change="changeTaskListPosition"
     >
@@ -11,6 +10,7 @@
         :key="task.id"
         @remove="$emit('remove', task)"
         @update="updateTask"
+        @change-about-task="updateAboutTask"
       >
       </task-tab>
     </draggable>
@@ -19,7 +19,6 @@
 </template>
 
 <script>
-// import TaskItem from '@/components/TaskItem.vue';
 import TaskTab from '@/components/TaskTab.vue';
 // import { defineComponent } from 'vue';
 import { VueDraggableNext } from 'vue-draggable-next';
@@ -39,25 +38,20 @@ export default {
   },
   data() {
     return {
-      // mutableTasks: this.tasks.map((a) => ({ ...a })),
-      mutableTasks: this.tasks,
-      // mutableTasks: [],
     };
   },
   watch: {
 
   },
-  mounted() {
-    this.mutableTasks = structuredClone(this.tasks);
-    // this.created();
-  },
   methods: {
     updateTask(mutableTask) {
       this.$emit('update', mutableTask);
     },
-    changeTaskListPosition(event) {
-      // console.log(event);
-      this.$emit('change-tasks-list-position', event);
+    changeTaskListPosition() {
+      this.$emit('change-tasks-list-position', this.tasks);
+    },
+    updateAboutTask(mutableAboutTask) {
+      this.$emit('change-about-task', mutableAboutTask);
     },
   },
 };

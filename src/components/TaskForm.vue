@@ -6,7 +6,7 @@
           <v-text-field
             v-model="task.body"
             @keyup.enter="createTask"
-            label="First name"
+            label="New Task"
             required
           ></v-text-field>
         </v-col>
@@ -21,15 +21,12 @@
           </v-btn>
         </v-col>
       </v-row>
-      <!--      <v-row>-->
-      <!--        <v-col cols="12" md="10" class="d-flex">-->
-<!--      <div class="form-textarea">-->
-<!--        <label for="about-task"></label>-->
-<!--        <textarea id="about-task" name="about-task">-->
-<!--        </textarea>-->
-<!--      </div>-->
-      <!--        </v-col>-->
-      <!--      </v-row>-->
+        <textarea
+          class="form-textarea"
+          v-model="task.aboutTask"
+          @keyup.enter="createTask"
+        >
+        </textarea>
     </v-container>
   </v-form>
 </template>
@@ -42,6 +39,7 @@ export default {
       task: {
         id: '',
         body: '',
+        aboutTask: '',
         checked: false,
       },
     };
@@ -52,6 +50,7 @@ export default {
       this.$emit('create', this.task);
       this.task = {
         body: '',
+        aboutTask: '',
       };
     },
   },
@@ -63,9 +62,9 @@ export default {
   margin-top: 10px
 
 .form-textarea
-  width: auto
-  //display: inline-block
-  max-width: 100%
+  width: 83%
+  display: inline-block
+  //max-width: 600px
   overflow: auto
   height: 70px
   padding: 10px
@@ -74,5 +73,4 @@ export default {
   border-radius: 5px
   font-size: 16px
   resize: none
-
 </style>
