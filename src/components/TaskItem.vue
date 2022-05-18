@@ -10,16 +10,24 @@
       </v-col>
       <v-col cols="12" md="9">
         <v-text-field
-            v-on:change="$emit('update', this.mutableTask)"
+            v-on:change="updateTask"
             v-model="mutableTask.body"
         ></v-text-field>
       </v-col>
-      <v-col cols="12" md="2">
+      <v-col cols="12" md="1">
+        <v-btn
+          color="teal-accent-4"
+          icon="mdi-plus"
+          class="btn-icon-centered"
+          @click="$emit('changeCollapse')"
+        ></v-btn>
+      </v-col>
+      <v-col cols="12" md="1">
         <v-btn
             color="red"
             icon="mdi-delete-forever"
             class="btn-icon-centered"
-            @click="$emit('remove', mutableTask)"
+            @click="deleteTask"
         ></v-btn>
       </v-col>
     </v-row>
@@ -50,12 +58,14 @@ export default {
     updateTask() {
       this.$emit('update', this.mutableTask);
     },
+    deleteTask() {
+      this.$emit('remove', this.mutableTask);
+    },
   },
 };
 </script>
 
-<style scoped>
-.btn-icon-centered {
-  margin-top: 5px;
-}
+<style lang="sass" scoped>
+.btn-icon-centered
+  margin-top: 5px
 </style>
