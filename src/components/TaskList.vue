@@ -6,8 +6,8 @@
     >
       <task-tab
         v-for="task in tasks"
-        :task="task"
         :key="task.id"
+        :task="task"
         @remove="$emit('remove', task)"
         @update="updateTask"
         @change-about-task="updateAboutTask"
@@ -20,9 +20,7 @@
 
 <script>
 import TaskTab from '@/components/TaskTab.vue';
-// import { defineComponent } from 'vue';
 import { VueDraggableNext } from 'vue-draggable-next';
-// import draggable from 'vuedraggable';
 
 export default {
   name: 'task-list',
@@ -36,19 +34,12 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-    };
-  },
-  watch: {
-
-  },
   methods: {
     updateTask(mutableTask) {
       this.$emit('update', mutableTask);
     },
     changeTaskListPosition() {
-      this.$emit('change-tasks-list-position', this.tasks);
+      this.$emit('change-tasks-list-position');
     },
     updateAboutTask(mutableAboutTask) {
       this.$emit('change-about-task', mutableAboutTask);

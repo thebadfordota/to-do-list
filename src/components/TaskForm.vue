@@ -21,11 +21,11 @@
           </v-btn>
         </v-col>
       </v-row>
-        <textarea
-          class="form-textarea"
-          v-model="task.aboutTask"
-          @keyup.enter="createTask"
-        >
+      <textarea
+        class="form-textarea"
+        v-model="task.aboutTask"
+        @keyup.enter="createTask"
+      >
         </textarea>
     </v-container>
   </v-form>
@@ -42,16 +42,40 @@ export default {
         aboutTask: '',
         checked: false,
       },
+      errors: [],
     };
   },
   methods: {
     createTask() {
-      this.task.id = Date.now();
-      this.$emit('create', this.task);
-      this.task = {
-        body: '',
-        aboutTask: '',
-      };
+      if (this.checkForm()) {
+        this.task.id = Date.now();
+        this.$emit('create', this.task);
+        this.task = {
+          body: '',
+          aboutTask: '',
+        };
+      } else {
+        this.$emit('form-error', this.errors);
+      }
+    },
+    checkForm() {
+      this.errors.splice(0, this.errors.length);
+      let isValid = true;
+      if (this.task.body.trim() === '') {
+        this.errors.push({
+          id: Date.now(),
+          body: 'The task body field is empty!',
+        });
+        isValid = false;
+      }
+      if (this.task.body.trim().length < 4) {
+        this.errors.push({
+          id: Date.now(),
+          body: 'The length of the task must be at least 4 characters!',
+        });
+        isValid = false;
+      }
+      return isValid;
     },
   },
 };
@@ -64,7 +88,6 @@ export default {
 .form-textarea
   width: 83%
   display: inline-block
-  //max-width: 600px
   overflow: auto
   height: 70px
   padding: 10px
